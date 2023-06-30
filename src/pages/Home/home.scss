@@ -1,0 +1,19 @@
+.home-page-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 2fr 1fr;
+  &__calender {
+    background: var(--color-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    .calender-back-groud-color {
+      background-color: var(--color-light);
+      padding: 0.5rem;
+    }
+  }
+  &__info {
+    background-color: var(--color-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+}

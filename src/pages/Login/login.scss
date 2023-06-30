@@ -1,0 +1,12 @@
+.login-page {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  &__inputs {
+    margin-bottom: 1rem;
+  }
+}
+.login-page-button-container {
+  display: flex;
+  gap: 1rem;
+}

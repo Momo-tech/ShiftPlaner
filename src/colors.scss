@@ -1,0 +1,97 @@
+/* Ionic Variables and Theming. For more info, please see:
+http://ionicframework.com/docs/theming/ */
+
+/** Ionic CSS Variables **/
+:root {
+  --border-color: #c8c7cc;
+  --color-primary: #285943;
+  --color-primary-rgb: 52, 194, 159;
+  --color-primary-contrast: #eaeeec;
+  --color-primary-contrast-rgb: 0, 0, 0;
+  --color-primary-shade: #183528;
+  --color-primary-tint: #142d22;
+  --color-primary-light: #7e9b8e;
+  --color-primary-lighter: #d4ded9;
+
+  --color-secondary: #d83148;
+  --color-secondary-rgb: 216, 49, 72;
+  --color-secondary-contrast: #ffffff;
+  --color-secondary-contrast-rgb: 255, 255, 255;
+  --color-secondary-shade: #be2b3f;
+  --color-secondary-tint: #dc465a;
+
+  --color-yellow: #f8fa61;
+  --color-yellow-contrast: #000000;
+  --color-yellow-contrast-rgb: 0, 0, 0;
+  --color-yellow-shade: #95973b;
+  --color-yellow-tint: #b7b948;
+
+  --color-success: #10dc60;
+  --color-success-rgb: 16, 220, 96;
+  --color-success-contrast: #ffffff;
+  --color-success-contrast-rgb: 255, 255, 255;
+  --color-success-shade: #0ec254;
+  --color-success-tint: #28e070;
+
+  --color-warning: #f3c806;
+  --color-warning-rgb: 243, 200, 6;
+  --color-warning-contrast: #141414;
+  --color-warning-contrast-rgb: 255, 255, 255;
+  --color-warning-shade: #e0b500;
+  --color-warning-tint: #ffd31a;
+  --color-warning-light: #f8de6a;
+
+  --color-danger: #f04141;
+  --color-danger-rgb: 245, 61, 61;
+  --color-danger-contrast: #ffffff;
+  --color-danger-contrast-rgb: 255, 255, 255;
+  --color-danger-shade: #d33939;
+  --color-danger-tint: #f25454;
+
+  --color-edit: #3ad8b1;
+  --color-edit-rgb: 58, 216, 177;
+  --color-edit-contrast: #000000;
+  --color-edit-contrast-rgb: 0, 0, 0;
+  --color-edit-shade: #33be9c;
+  --color-edit-tint: #4edcb9;
+
+  --color-dark: #2f2f2fff;
+  --color-dark-rgb: 20, 20, 20;
+  --color-dark-contrast: #ffffff;
+  --color-dark-contrast-rgb: 255, 255, 255;
+  --color-dark-shade: rgb(18, 18, 18);
+  --color-dark-tint: rgb(14, 13, 13);
+
+  --color-medium: #cccccc;
+  --color-medium-rgb: 204, 204, 204;
+  --color-medium-contrast: #333333;
+  --color-medium-contrast-rgb: 51, 51, 51;
+  --color-medium-shade: #b4b4b4;
+  --color-medium-tint: #d1d1d1;
+  --color-medium-contrast-lighter: #434343;
+  --color-medium-button: #827c7c;
+
+  --color-light: #fcfcfcff;
+  --color-light-rgb: 247, 247, 247;
+  --color-light-contrast: #000000;
+  --color-light-contrast-rgb: 0, 0, 0;
+  --color-light-shade: rgb(233, 229, 229);
+  --color-light-tint: rgb(193, 190, 190);
+
+  --text-color: var(--ion-color-dark);
+  --text-color-rgb: var(--ion-color-dark-rgb);
+
+  --footer: #f4f4f4;
+  --background-color-box: #dcdcdc;
+  --background-color: #fcfcfc;
+  --container-color: #f8f9f6;
+  --background-color-rgb: 252, 252, 252;
+
+  --card-background: #ffffff;
+  --item-background: #ffffff;
+
+  --color-white: #ffffff;
+  --color-white-rgb: 255, 255, 255;
+  --color-black: #000000;
+  --color-black-rgb: 0, 0, 0;
+}
