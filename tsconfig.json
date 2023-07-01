@@ -20,7 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* Absolute imports  */
     "baseUrl": "src"
   },
   "include": ["src"],

@@ -1,17 +1,18 @@
 import { MantineProvider } from "@mantine/core";
 import { Session } from "@supabase/supabase-js";
-import { createContext } from "preact";
+import { Shifts } from "pages/Shifts/Shifts";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { UserContext } from "util/context";
 import "./colors.scss";
 import { SideNavbar } from "./components/Navbar/SideNavbar";
 import { supabase } from "./config";
 import { User } from "./models/User";
 import { Home } from "./pages/Home/Home";
 import { LoginPage } from "./pages/Login/Login";
-import { HOME, LOGIN } from "./routes";
+import { HOME, LOGIN, SHIFTS } from "./routes";
 import { getUser } from "./supabase/userFunctions";
 
 export default function App() {
@@ -72,6 +73,7 @@ export default function App() {
                   <>
                     <Route index path={"/"} element={<Home />}></Route>
                     <Route index path={HOME} element={<Home />}></Route>
+                    <Route index path={SHIFTS} element={<Shifts />}></Route>
                   </>
                 )}
               </Routes>

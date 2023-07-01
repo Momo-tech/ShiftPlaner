@@ -1,43 +1,70 @@
+import dayjs from "dayjs";
 import { supabase } from "../config";
 import { User } from "../models/User";
 import { UserShift } from "../models/UserShift";
 
-export async function getUserShifts(userId: User["id"]) {
+export async function getUserShifts(
+  userId: User["id"],
+  dateRange?: [Date, Date]
+) {
   try {
-    const { data, error, status } = await supabase
-      .from("user_shift")
-      .select(
-        `
-            id, 
-            user_id, 
-            date,
-            created_at,
-            shift ( id, startTime, endTime, name  )
+    const { data, error, status } = dateRange
+      ? await supabase
+          .from("shift")
+          .select(
+            `
+            start_time,
+            end_time,
+            name,
+            id,
+            user_shift ( id, user_id, date, created_at )
           `
-      )
-      .eq("user_id", userId);
+          )
+          .eq("user_shift.user_id", userId)
+          .lte("user_shift.date", dateRange?.[1].toISOString())
+          .gte("user_shift.date", dateRange?.[0].toISOString())
+      : await supabase
+          .from("shift")
+          .select(
+            `
+            start_time,
+            end_time,
+            name,
+            id,
+            user_shift ( id, user_id, date, created_at )
+          `
+          )
+          .eq("user_shift.user_id", userId);
     if (error && status !== 406) {
       throw error;
     }
     if (!data) {
       return [];
     }
-    const userShifts: UserShift[] = data?.map((data) => {
-      const shift: {
-        id: string;
-        startTime: Date;
-        endTime: Date;
-        name: string;
-      } | null = data.shift.length > 0 ? data.shift.pop() ?? null : null;
-      return new UserShift({
-        id: data.id,
-        created_at: data.created_at,
-        date: new Date(data.date),
-        endTime: shift?.endTime ? new Date(shift.endTime) : new Date(),
-        startTime: shift?.startTime ? new Date(shift.startTime) : new Date(),
-        name: shift?.name,
-      });
-    });
+    const userShifts: UserShift[] = data?.flatMap((data) =>
+      data.user_shift.map(
+        (shift) =>
+          new UserShift({
+            id: shift.id,
+            created_at: shift.created_at,
+            user_id: shift.user_id,
+            date: new Date(shift.date),
+            endTime: data?.end_time
+              ? dayjs(shift.date)
+                  .set("hour", dayjs(data.end_time).hour())
+                  .set("minute", dayjs(data.end_time).minute())
+                  .toDate()
+              : new Date(),
+            startTime: data?.start_time
+              ? dayjs(shift.date)
+                  .set("hour", dayjs(data.start_time).hour())
+                  .set("minute", dayjs(data.start_time).minute())
+                  .toDate()
+              : new Date(),
+            name: data?.name,
+          })
+      )
+    );
     return userShifts;
   } catch (error: any) {
     alert(error.message);

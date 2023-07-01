@@ -1,19 +1,19 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import React from "react";
-import {
-  AlertCircle,
-  Database,
-  GitPullRequest,
-  Messages,
-} from "tabler-icons-react";
+import { useNavigate } from "react-router";
+import { APPLY, HOME, SHIFTS } from "routes";
+import { GitPullRequest, Home, Messages } from "tabler-icons-react";
 
 interface MainLinkProps {
   icon: React.ReactNode;
   color: string;
   label: string;
+  route: string;
 }
 
-function MainLink({ icon, color, label }: MainLinkProps) {
+function MainLink({ icon, color, label, route }: MainLinkProps) {
+  const navigate = useNavigate();
+
   return (
     <UnstyledButton
       sx={(theme) => ({
@@ -31,6 +31,7 @@ function MainLink({ icon, color, label }: MainLinkProps) {
               : theme.colors.gray[0],
         },
       })}
+      onClick={() => navigate(route)}
     >
       <Group>
         <ThemeIcon color={color} variant="light">
@@ -45,16 +46,23 @@ function MainLink({ icon, color, label }: MainLinkProps) {
 
 const data = [
   {
+    icon: <Home />,
+    color: "green",
+    label: "Home",
+    route: HOME,
+  },
+  {
     icon: <GitPullRequest size="1rem" />,
     color: "blue",
     label: "Schichten",
+    route: SHIFTS,
   },
   {
-    icon: <AlertCircle size="1rem" />,
-    color: "teal",
-    label: "Verfügbarkeiten",
+    icon: <Messages size="1rem" />,
+    color: "violet",
+    label: "Bewerben",
+    route: APPLY,
   },
-  { icon: <Messages size="1rem" />, color: "violet", label: "Planen" },
 ];
 
 export function MainLinks() {

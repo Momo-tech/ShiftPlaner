@@ -59,7 +59,7 @@ export function SideNavbar(props: SideNavbarProps) {
                 mr="xl"
               />
             </MediaQuery>
-            <div>Schiftplaner</div>
+            <div>Schichtplaner</div>
           </div>
         </Header>
       }
