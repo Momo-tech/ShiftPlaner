@@ -1,0 +1,15 @@
+.apply-header-line {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 1rem;
+}
+.apply-shifts {
+  display: grid;
+  gap: 0.5rem;
+}
+.apply-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}

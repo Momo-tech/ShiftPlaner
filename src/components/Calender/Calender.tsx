@@ -19,7 +19,7 @@ export function Calender() {
       console.error("missing user");
       return;
     }
-    const userShifts = await getUserShifts(user.id);
+    const userShifts = await getUserShifts(user.id, user.com_id);
     setUserShifts(userShifts ?? []);
   };
 

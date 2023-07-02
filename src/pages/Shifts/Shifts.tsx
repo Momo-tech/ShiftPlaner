@@ -15,7 +15,7 @@ export const Shifts = () => {
       console.error("missing user");
       return;
     }
-    const userShifts = await getUserShifts(user.id, [
+    const userShifts = await getUserShifts(user.id, user.com_id, [
       dayjs(month).startOf("month").toDate(),
       dayjs(month).endOf("month").toDate(),
     ]);
@@ -50,7 +50,7 @@ export const Shifts = () => {
         <tbody>
           {shifts.map((shift) => (
             <tr key={shift.id}>
-              <td>{dayjs(shift.date).format("YYYY.MM.DD")}</td>
+              <td>{dayjs(shift.date).format("DD.MM.YYYY")}</td>
               <td>{dayjs(shift.startTime).format("HH:mm")}</td>
               <td>{dayjs(shift.endTime).format("HH:mm")}</td>
               <td>{shift.name}</td>

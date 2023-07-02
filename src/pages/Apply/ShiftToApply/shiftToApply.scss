@@ -1,0 +1,12 @@
+.shift-to-apply {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border-radius: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

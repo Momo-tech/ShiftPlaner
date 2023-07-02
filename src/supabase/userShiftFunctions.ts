@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
+import { Company } from "models/Company";
 import { supabase } from "../config";
 import { User } from "../models/User";
 import { UserShift } from "../models/UserShift";
 
 export async function getUserShifts(
   userId: User["id"],
+  company_id: Company["id"],
   dateRange?: [Date, Date]
 ) {
   try {
@@ -17,16 +19,19 @@ export async function getUserShifts(
             end_time,
             name,
             id,
+            company_id,
             user_shift ( id, user_id, date, created_at )
           `
           )
           .eq("user_shift.user_id", userId)
+          .eq("company_id", company_id)
           .lte("user_shift.date", dateRange?.[1].toISOString())
           .gte("user_shift.date", dateRange?.[0].toISOString())
       : await supabase
           .from("shift")
           .select(
             `
+            company_id,
             start_time,
             end_time,
             name,
@@ -34,7 +39,8 @@ export async function getUserShifts(
             user_shift ( id, user_id, date, created_at )
           `
           )
-          .eq("user_shift.user_id", userId);
+          .eq("user_shift.user_id", userId)
+          .eq("company_id", company_id);
     if (error && status !== 406) {
       throw error;
     }

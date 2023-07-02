@@ -1,8 +1,16 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
+import { Role } from "models/User";
 import React from "react";
 import { useNavigate } from "react-router";
-import { APPLY, HOME, SHIFTS } from "routes";
-import { GitPullRequest, Home, Messages } from "tabler-icons-react";
+import { APPLY, HOME, LOGIN, PLAN, SHIFTS } from "routes";
+import {
+  CalendarTime,
+  GitPullRequest,
+  Home,
+  Login,
+  Messages,
+} from "tabler-icons-react";
+import { useUserContext } from "util/context";
 
 interface MainLinkProps {
   icon: React.ReactNode;
@@ -50,22 +58,46 @@ const data = [
     color: "green",
     label: "Home",
     route: HOME,
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
   },
   {
     icon: <GitPullRequest size="1rem" />,
     color: "blue",
     label: "Schichten",
     route: SHIFTS,
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
   },
   {
     icon: <Messages size="1rem" />,
     color: "violet",
     label: "Bewerben",
     route: APPLY,
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
+  },
+  {
+    icon: <CalendarTime />,
+    color: "green",
+    label: "Planen",
+    route: PLAN,
+    acces: [Role.OWNER, Role.PLANER],
+  },
+];
+const noUserData = [
+  {
+    icon: <Login />,
+    color: "green",
+    label: "Login",
+    route: LOGIN,
   },
 ];
 
 export function MainLinks() {
-  const links = data.map((link) => <MainLink {...link} key={link.label} />);
+  const user = useUserContext();
+  const dataToUse = user
+    ? data.filter((link) => link.acces.includes(user.role))
+    : noUserData;
+  const links = dataToUse.map((link) => (
+    <MainLink {...link} key={link.label} />
+  ));
   return <div>{links}</div>;
 }
