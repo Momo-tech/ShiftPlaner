@@ -1,7 +1,6 @@
 export class Shift {
   public id: string;
   public created_at: Date;
-  public weekDays: Weekday[] | null;
   public startTime: Date;
   public endTime: Date;
   public company_id: string;
@@ -10,7 +9,6 @@ export class Shift {
   constructor(initialValues: Partial<Shift>) {
     this.id = initialValues.id ?? "";
     this.created_at = initialValues.created_at ?? new Date();
-    this.weekDays = initialValues.weekDays ?? [Weekday.Monday];
     this.startTime = initialValues.startTime ?? new Date();
     this.endTime = initialValues.endTime ?? new Date();
     this.company_id = initialValues.company_id ?? "";
@@ -19,7 +17,7 @@ export class Shift {
   }
 }
 
-enum Weekday {
+export enum Weekday {
   Monday = "MONDAY",
   Tuesday = "TUESDAY",
   Wednesday = "WEDNESDAY",
@@ -29,9 +27,22 @@ enum Weekday {
   Sunday = "SUNDAY",
 }
 
-enum Repeats {
+export enum Repeats {
   DAILY = "DAILY",
   WEEKLY = "WEEKLY",
   MONTHLY = "MONTHLY",
   YEARLY = "YEARLY",
+}
+
+export function getNameForRepeats(repeats: Repeats) {
+  switch (repeats) {
+    case Repeats.DAILY:
+      return "Täglich";
+    case Repeats.WEEKLY:
+      return "Wöchentlich";
+    case Repeats.MONTHLY:
+      return "Monatlich";
+    case Repeats.YEARLY:
+      return "Jährlich";
+  }
 }

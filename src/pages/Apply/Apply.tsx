@@ -1,11 +1,14 @@
 import { Button } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import {
+  OpenShiftsTable,
+  OpenShiftsTableType,
+} from "components/OpenShiftsTable/OpenShiftsTable";
 import { OpenShift } from "models/OpenShift";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { applyToShifts } from "supabase/appliedShiftFunction";
 import { getOpenShifts } from "supabase/openShiftFunction";
 import { useUserContext } from "util/context";
-import { ShiftToApply } from "./ShiftToApply/ShiftToApply";
 import "./apply.scss";
 
 export const Apply = () => {
@@ -36,31 +39,27 @@ export const Apply = () => {
     }
     const response = await applyToShifts(openShifts, user);
     if (response) {
-      toast.success("Auf Schichten beworben.");
+      notifications.show({
+        title: "Beworben",
+        message: "Du hast dich für die Schicht beworben",
+      });
     } else {
-      toast.error("Es ist ein Fehler aufgetretten, versuche es später erneut.");
+      notifications.show({
+        title: "Fehler",
+        message:
+          "Es ist leider ein Fehler aufgetretten versuche es später erneut!",
+      });
     }
   };
 
   return (
     <div>
       <h2>Auf Schichten Bewerben</h2>
-      <div className="apply-header-line">
-        <div>Name</div>
-        <div>Datum</div>
-        <div>Startzeit</div>
-        <div>Endzeit</div>
-        <div>Bewerben</div>
-      </div>
-      <div className="apply-shifts">
-        {openShifts.map((shift) => (
-          <ShiftToApply
-            key={shift.id}
-            shift={shift}
-            onShiftClick={handleShiftClick}
-          />
-        ))}
-      </div>
+      <OpenShiftsTable
+        shifts={openShifts}
+        type={OpenShiftsTableType.APPLY}
+        onShiftItemClick={handleShiftClick}
+      />
       <div className="apply-button-container">
         <Button onClick={handleApply}>Bewerben</Button>
       </div>

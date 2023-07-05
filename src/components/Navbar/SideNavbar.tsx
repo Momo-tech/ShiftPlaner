@@ -56,11 +56,6 @@ export function SideNavbar(props: SideNavbarProps) {
           )}
         </Navbar>
       }
-      // footer={
-      //   <Footer height={60} p="md">
-      //     Application footer
-      //   </Footer>
-      // }
       header={
         <Header height={{ base: 50, md: 70 }} p="md">
           <div

@@ -6,6 +6,7 @@ export class OpenShift {
   public endTime: Date;
   public company_id: string;
   public name: string;
+  public shiftId: string;
   constructor(initialValues: Partial<OpenShift>) {
     this.id = initialValues.id ?? "";
     this.created_at = initialValues.created_at ?? new Date();
@@ -14,5 +15,6 @@ export class OpenShift {
     this.endTime = initialValues.endTime ?? new Date();
     this.company_id = initialValues.company_id ?? "";
     this.name = initialValues.name ?? "";
+    this.shiftId = initialValues.shiftId ?? "";
   }
 }

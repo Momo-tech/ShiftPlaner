@@ -1,14 +1,15 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { Role } from "models/User";
 import React from "react";
 import { useNavigate } from "react-router";
-import { APPLY, HOME, LOGIN, PLAN, SHIFTS } from "routes";
+import { APPLY, CREATESHIFTS, HOME, LOGIN, PLAN, SHIFTS } from "routes";
 import {
+  CalendarPlus,
   CalendarTime,
-  GitPullRequest,
   Home,
   Login,
-  Messages,
+  Send,
 } from "tabler-icons-react";
 import { useUserContext } from "util/context";
 
@@ -21,6 +22,7 @@ interface MainLinkProps {
 
 function MainLink({ icon, color, label, route }: MainLinkProps) {
   const navigate = useNavigate();
+  const biggerThanSmallScreenSize = useMediaQuery("(min-width: 48em)");
 
   return (
     <UnstyledButton
@@ -46,7 +48,7 @@ function MainLink({ icon, color, label, route }: MainLinkProps) {
           {icon}
         </ThemeIcon>
 
-        <Text size="sm">{label}</Text>
+        {biggerThanSmallScreenSize && <Text size="sm">{label}</Text>}
       </Group>
     </UnstyledButton>
   );
@@ -61,14 +63,14 @@ const data = [
     acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
   },
   {
-    icon: <GitPullRequest size="1rem" />,
+    icon: <CalendarTime size="1rem" />,
     color: "blue",
     label: "Schichten",
     route: SHIFTS,
     acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
   },
   {
-    icon: <Messages size="1rem" />,
+    icon: <Send size="1rem" />,
     color: "violet",
     label: "Bewerben",
     route: APPLY,
@@ -79,6 +81,13 @@ const data = [
     color: "green",
     label: "Planen",
     route: PLAN,
+    acces: [Role.OWNER, Role.PLANER],
+  },
+  {
+    icon: <CalendarPlus />,
+    color: "green",
+    label: "Schichten erstellen",
+    route: CREATESHIFTS,
     acces: [Role.OWNER, Role.PLANER],
   },
 ];

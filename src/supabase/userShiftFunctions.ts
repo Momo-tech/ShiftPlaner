@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Company } from "models/Company";
+import { OpenShift } from "models/OpenShift";
 import { supabase } from "../config";
 import { User } from "../models/User";
 import { UserShift } from "../models/UserShift";
@@ -75,4 +76,33 @@ export async function getUserShifts(
   } catch (error: any) {
     alert(error.message);
   }
+}
+
+export async function assignShiftToUser(
+  userId: User["id"],
+  openShift: OpenShift
+) {
+  const { error } = await supabase.from("user_shift").insert({
+    user_id: userId,
+    shift_id: openShift.shiftId,
+    date: openShift.date,
+    company_id: openShift.company_id,
+  });
+
+  if (error) {
+    console.error(error);
+    return false;
+  } else {
+    return await deleteOpenShiftsAfterAssign(openShift.id);
+  }
+}
+
+async function deleteOpenShiftsAfterAssign(openShiftId: OpenShift["id"]) {
+  const { error } = await supabase.rpc("delete_after_user_shift_assign", {
+    open_shift_id_to_delete: openShiftId,
+  });
+  if (error) {
+    return false;
+  }
+  return true;
 }

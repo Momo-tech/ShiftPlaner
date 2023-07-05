@@ -1,11 +1,11 @@
 import { Alert, Button, TextInput } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import {
   AuthError,
   SignInWithPasswordCredentials,
 } from "@supabase/supabase-js";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { HOME } from "routes";
 import { AlertCircle } from "tabler-icons-react";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
@@ -22,7 +22,10 @@ export const LoginPage = () => {
   const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     if (!email || !password) {
-      toast.error("Bitte Passwort und E-Mail eingeben");
+      notifications.show({
+        title: "Fehler",
+        message: "Es ist ein Fehler aufgetretten, versuche es später erneut.",
+      });
       return;
     }
     const credentials: SignInWithPasswordCredentials = {

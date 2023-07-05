@@ -44,6 +44,8 @@ export async function getOpenShifts(companyId: Company["id"]) {
                   .toDate()
               : new Date(),
             name: data.name,
+            shiftId: data.id,
+            company_id: data.company_id,
           })
       )
     );
@@ -51,4 +53,17 @@ export async function getOpenShifts(companyId: Company["id"]) {
   } catch (error: any) {
     alert(error.message);
   }
+}
+
+export async function createOpenShift(openShift: OpenShift) {
+  const { error } = await supabase.from("open_shift").insert({
+    shift_id: openShift.shiftId,
+    company_id: openShift.company_id,
+    date: openShift.date,
+  });
+  if (error) {
+    console.error(error);
+    return false;
+  }
+  return true;
 }

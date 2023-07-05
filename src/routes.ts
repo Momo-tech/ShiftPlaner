@@ -4,3 +4,4 @@ export const SHIFTS = "/shifts";
 export const HOME = "/home";
 export const APPLY = "/apply";
 export const PLAN = "/plan";
+export const CREATESHIFTS = "/createshifts";

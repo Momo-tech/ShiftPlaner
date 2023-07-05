@@ -1,12 +1,13 @@
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { Session } from "@supabase/supabase-js";
 import { Apply } from "pages/Apply/Apply";
+import { CreateShifts } from "pages/Home/CreateShifts/CreateShifts";
 import { Plan } from "pages/Plan/Plan";
 import { Shifts } from "pages/Shifts/Shifts";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { UserContext } from "util/context";
 import "./colors.scss";
 import { SideNavbar } from "./components/Navbar/SideNavbar";
@@ -14,7 +15,7 @@ import { supabase } from "./config";
 import { User, isAtLeastPlaner } from "./models/User";
 import { Home } from "./pages/Home/Home";
 import { LoginPage } from "./pages/Login/Login";
-import { APPLY, HOME, LOGIN, PLAN, SHIFTS } from "./routes";
+import { APPLY, CREATESHIFTS, HOME, LOGIN, PLAN, SHIFTS } from "./routes";
 import { getUser } from "./supabase/userFunctions";
 
 export default function App() {
@@ -64,6 +65,7 @@ export default function App() {
               // fontFamily: ""
             }}
           >
+            <Notifications position="top-right" />
             <div className="page">
               <Routes>
                 {!session || !user ? (
@@ -80,6 +82,11 @@ export default function App() {
                     {isAtLeastPlaner(user?.role) && (
                       <>
                         <Route index path={PLAN} element={<Plan />}></Route>
+                        <Route
+                          index
+                          path={CREATESHIFTS}
+                          element={<CreateShifts />}
+                        ></Route>
                       </>
                     )}
                   </>
@@ -88,7 +95,6 @@ export default function App() {
             </div>
           </MantineProvider>
         </SideNavbar>
-        <ToastContainer pauseOnFocusLoss={false} hideProgressBar={true} />
       </UserContext.Provider>
     </BrowserRouter>
   );

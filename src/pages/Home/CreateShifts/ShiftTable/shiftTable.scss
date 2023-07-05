@@ -1,0 +1,19 @@
+.shift-table {
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  &__table {
+    display: grid;
+    gap: 1rem;
+    .shift-table-item {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--color-primary);
+      color: var(--color-primary-contrast);
+      align-items: center;
+    }
+  }
+}
