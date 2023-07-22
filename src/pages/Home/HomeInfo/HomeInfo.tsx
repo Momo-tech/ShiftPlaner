@@ -15,7 +15,7 @@ export const HomeInfo = (props: HomeInfoProps) => {
     (shift) => dayjs(shift.date).month() === dayjs(month).month()
   );
   const pastShifts = filteredShits.filter((shift) => dayjs(shift.date).isBefore(dayjs()));
-  const futureShifts = filteredShits.filter((shift) => dayjs(shift.date).isAfter(dayjs()));
+  const futureShifts = filteredShits.filter((shift) => dayjs(shift.date).isAfter(dayjs(), "day"));
   const workHoursPast = calculateWorkHoursForShifts(pastShifts);
   const workHoursFuture = calculateWorkHoursForShifts(futureShifts);
   const pauseHoursPast = pastShifts.reduce((acc, shift) => {
@@ -39,6 +39,7 @@ export const HomeInfo = (props: HomeInfoProps) => {
           </div>
         </div>
 
+
         <div className="home-info-data-box__item">
           <div>Stunden</div>
           <div className="home-info-data-box__item--number">{workHoursPast}</div>
@@ -48,7 +49,7 @@ export const HomeInfo = (props: HomeInfoProps) => {
           <div className="home-info-data-box__item--number">{pauseHoursPast}</div>
         </div>
       </div>
-      <div className="home-info-data-box-header">Geplannt</div>
+      <div className="home-info-data-box-header">Geplant</div>
       <div className="home-info-data-box">
         <div className="home-info-data-box__item">
           <div>Schichten</div>
