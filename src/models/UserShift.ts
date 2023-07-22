@@ -7,6 +7,10 @@ export class UserShift {
   public startTime: Date;
   public endTime: Date;
   public name: string;
+  /**
+   * pause in unix seconds
+   */
+  public pause: number;
 
   constructor(initialValues: Partial<UserShift>) {
     this.id = initialValues.id ?? "";
@@ -17,5 +21,6 @@ export class UserShift {
     this.startTime = initialValues.startTime ?? new Date();
     this.endTime = initialValues.endTime ?? new Date();
     this.name = initialValues.name ?? "";
+    this.pause = initialValues.pause ?? 0;
   }
 }

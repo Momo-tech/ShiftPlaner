@@ -99,7 +99,7 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
           />
           <Trash
             size={40}
-            className="shifts-to-apply-actions__delete"
+            className="shift-to-apply-actions__delete"
             onClick={handleDeleteShift}
           />
         </div>
