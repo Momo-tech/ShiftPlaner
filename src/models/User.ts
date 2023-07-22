@@ -5,6 +5,7 @@ export class User {
   public full_name: string;
   public com_id: string;
   public role: Role;
+  public targetHours: number;
   constructor(initialValues: Partial<User>) {
     this.id = initialValues.id ?? "";
     this.updated_at = initialValues.updated_at ?? new Date();
@@ -12,6 +13,7 @@ export class User {
     this.full_name = initialValues.full_name ?? "";
     this.com_id = initialValues.com_id ?? "";
     this.role = initialValues.role ?? Role.EMPLOYEE;
+    this.targetHours = initialValues.targetHours ?? 0;
   }
 }
 

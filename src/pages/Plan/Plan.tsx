@@ -8,8 +8,9 @@ import { StyledLoading } from "components/StyledLoading/StyledLoading";
 import { OpenShift } from "models/OpenShift";
 import { useEffect, useState } from "react";
 import { getOpenShifts } from "supabase/openShiftFunction";
-import { assignShiftToUser } from "supabase/userShiftFunctions";
+import { assignOpenShiftToUser } from "supabase/userShiftFunctions";
 import { useUserContext } from "util/context";
+import { EmployeesOverview } from "./EmployeesOverview/EmployeesOverview";
 import "./plan.scss";
 
 export const Plan = () => {
@@ -52,7 +53,7 @@ export const Plan = () => {
       const userId = shiftsToAssign[openShiftId];
       if (!(openShift && userId)) return;
 
-      const result = await assignShiftToUser(userId, openShift);
+      const result = await assignOpenShiftToUser(userId, openShift);
       if (!result) success = false;
     }
     notifications.show({
@@ -79,12 +80,19 @@ export const Plan = () => {
       ) : (
         <>
           <h2>Plan</h2>
-          <OpenShiftsTable
-            type={OpenShiftsTableType.PLAN}
-            shifts={openShifts}
-            onShiftItemClick={handleShiftClick}
-            onSelectionChange={handleSelectionChange}
-          />
+          <div className="plan-shift-grid-container">
+            <div className="plan-shift-grid-container__table">
+              <OpenShiftsTable
+                type={OpenShiftsTableType.PLAN}
+                shifts={openShifts}
+                onShiftItemClick={handleShiftClick}
+                onSelectionChange={handleSelectionChange}
+              />
+            </div>
+            <div className="plan-shift-grid-container__employees-overview">
+              <EmployeesOverview />
+            </div>
+          </div>
           <div className="plan-button-container">
             <Button loading={isSubmitting} onClick={handleAssignOpenShift}>
               Zuweisen

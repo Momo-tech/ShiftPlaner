@@ -16,15 +16,39 @@ logged in User can see the number of shifts he has for a selected Month.
 Feel free to design it however you want.
 Please follow coding standards and if fit add unit tests.
 
+## Github Copilot Group
+
+Your task is to implement the feature using Github Copilot.
+
+### How to Use?
+
+## Amazon Code Whispherer Group
+
+Your task is to implement the feature using Amazons Code Whispherer
+
+### How to Use?
+
+[Code Whispherer with VS Code](https://youtu.be/rHNMfOK8pWI)
+
+[Code Whispherer with Jet Brains](https://youtu.be/Z3ZAJoi4x6Q)
+
+[Code Whispherer more infos](https://youtu.be/j8BoVmHKFlI)
+
+## Control Group
+
+Your task is the implement the feature without using any AI Code completion tool.
+Please refrain from using Chat GPT as well.
+
 ## End
 
 Create a Pull Request with your code.
+
 Please answer the final questionary.
 Thank you for your participation.
 
 # Purpose
 
-This is a program made for my Master Thesis Github Copilot and Code Wisherer Experiment
+This is a program made for my Master Thesis Github Copilot and Code Wispherer Experiment
 
 # Setup
 
@@ -42,7 +66,7 @@ npm run dev
 
 # Database
 
-This uses a remote database of supabase therefore no need for local development
+This uses a remote database of supabase therefore no need for local development, internet access is still needed.
 
 # Test Accounts Login
 

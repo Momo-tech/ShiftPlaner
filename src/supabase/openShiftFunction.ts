@@ -54,6 +54,17 @@ export async function getOpenShifts(companyId: Company["id"]) {
     alert(error.message);
   }
 }
+export async function deleteOpenShift(openShiftId: OpenShift["id"]) {
+  const { error } = await supabase
+    .from("open_shift")
+    .delete()
+    .match({ id: openShiftId });
+  if (error) {
+    console.error(error);
+    return false;
+  }
+  return true;
+}
 
 export async function createOpenShift(openShift: OpenShift) {
   const { error } = await supabase.from("open_shift").insert({

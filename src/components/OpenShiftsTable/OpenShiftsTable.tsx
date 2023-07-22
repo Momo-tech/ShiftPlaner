@@ -25,7 +25,7 @@ export const OpenShiftsTable = (props: OpenShiftsTableProps) => {
         <div>Datum</div>
         <div>Startzeit</div>
         <div>Endzeit</div>
-        <div>Aktion</div>
+        <div>Aktionen</div>
       </div>
       <div className="open-shifts-table__table">
         {props.shifts.map((shift) => (

@@ -5,6 +5,60 @@ import { supabase } from "../config";
 import { User } from "../models/User";
 import { UserShift } from "../models/UserShift";
 
+export async function getAllShiftsInDateRange(
+  company_id: Company["id"],
+  dateRange: [Date, Date]
+) {
+  try {
+    const { data, error, status } = await supabase
+      .from("shift")
+      .select(
+        `
+            name,
+            id,
+            company_id,
+            user_shift ( id, user_id, date, start_time, end_time ,created_at )
+          `
+      )
+      .eq("company_id", company_id)
+      .lte("user_shift.date", dateRange?.[1].toISOString())
+      .gte("user_shift.date", dateRange?.[0].toISOString());
+    if (error && status !== 406) {
+      throw error;
+    }
+    if (!data) {
+      return [];
+    }
+    const userShifts: UserShift[] = data?.flatMap((data) =>
+      data.user_shift.map(
+        (shift) =>
+          new UserShift({
+            id: shift.id,
+            created_at: shift.created_at,
+            user_id: shift.user_id,
+            date: new Date(shift.date),
+            endTime: shift.end_time
+              ? dayjs(shift.date)
+                  .set("hour", dayjs(shift.end_time).hour())
+                  .set("minute", dayjs(shift.end_time).minute())
+                  .toDate()
+              : new Date(),
+            startTime: shift.start_time
+              ? dayjs(shift.date)
+                  .set("hour", dayjs(shift.start_time).hour())
+                  .set("minute", dayjs(shift.start_time).minute())
+                  .toDate()
+              : new Date(),
+            name: data?.name,
+          })
+      )
+    );
+    return userShifts;
+  } catch (error: any) {
+    alert(error.message);
+  }
+}
+
 export async function getUserShifts(
   userId: User["id"],
   company_id: Company["id"],
@@ -16,12 +70,10 @@ export async function getUserShifts(
           .from("shift")
           .select(
             `
-            start_time,
-            end_time,
             name,
             id,
             company_id,
-            user_shift ( id, user_id, date, created_at )
+            user_shift ( id, user_id, date, start_time, end_time ,created_at )
           `
           )
           .eq("user_shift.user_id", userId)
@@ -33,11 +85,9 @@ export async function getUserShifts(
           .select(
             `
             company_id,
-            start_time,
-            end_time,
             name,
             id,
-            user_shift ( id, user_id, date, created_at )
+            user_shift ( id, user_id,  start_time, end_time ,date, created_at )
           `
           )
           .eq("user_shift.user_id", userId)
@@ -56,16 +106,16 @@ export async function getUserShifts(
             created_at: shift.created_at,
             user_id: shift.user_id,
             date: new Date(shift.date),
-            endTime: data?.end_time
+            endTime: shift.end_time
               ? dayjs(shift.date)
-                  .set("hour", dayjs(data.end_time).hour())
-                  .set("minute", dayjs(data.end_time).minute())
+                  .set("hour", dayjs(shift.end_time).hour())
+                  .set("minute", dayjs(shift.end_time).minute())
                   .toDate()
               : new Date(),
-            startTime: data?.start_time
+            startTime: shift.start_time
               ? dayjs(shift.date)
-                  .set("hour", dayjs(data.start_time).hour())
-                  .set("minute", dayjs(data.start_time).minute())
+                  .set("hour", dayjs(shift.start_time).hour())
+                  .set("minute", dayjs(shift.start_time).minute())
                   .toDate()
               : new Date(),
             name: data?.name,
@@ -78,7 +128,7 @@ export async function getUserShifts(
   }
 }
 
-export async function assignShiftToUser(
+export async function assignOpenShiftToUser(
   userId: User["id"],
   openShift: OpenShift
 ) {
@@ -87,6 +137,8 @@ export async function assignShiftToUser(
     shift_id: openShift.shiftId,
     date: openShift.date,
     company_id: openShift.company_id,
+    start_time: openShift.startTime,
+    end_time: openShift.endTime,
   });
 
   if (error) {

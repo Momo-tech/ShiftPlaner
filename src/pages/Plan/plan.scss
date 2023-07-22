@@ -1,3 +1,19 @@
+.plan-shift-grid-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas: "employees-overview" "openshift-table";
+  @media (min-width: 1300px) {
+    grid-template-areas: "openshift-table employees-overview ";
+    grid-template-columns: 2fr 1fr;
+  }
+  &__employees-overview {
+    grid-area: employees-overview;
+  }
+  &__table {
+    grid-area: openshift-table;
+  }
+}
+
 .plan-button-container {
   margin-top: 1rem;
   display: flex;

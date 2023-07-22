@@ -1,11 +1,14 @@
 import { Checkbox, Select, SelectItem } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
 import { AppliedShift } from "models/AppliedShift";
 import { OpenShift } from "models/OpenShift";
 import { User } from "models/User";
 import { useEffect, useState } from "react";
 import { getAllAppliedShiftsForCompanyAndOpenShift } from "supabase/appliedShiftFunction";
+import { deleteOpenShift } from "supabase/openShiftFunction";
 import { getAllUsersForComapny } from "supabase/userFunctions";
+import { Trash } from "tabler-icons-react";
 import { useUserContext } from "util/context";
 import { OpenShiftsTableType } from "../OpenShiftsTable";
 import "./openShiftTableItem.scss";
@@ -32,7 +35,9 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
   const user = useUserContext();
 
   const handleGetData = async () => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
     const users = await getAllUsersForComapny(user.com_id);
     const appliedShifts = await getAllAppliedShiftsForCompanyAndOpenShift(
       user.com_id,
@@ -46,43 +51,62 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
     }
   }, []);
 
+  const handleDeleteShift = async () => {
+    const sucess = await deleteOpenShift(props.shift.id);
+    if (sucess) {
+      notifications.show({
+        title: "Schicht gelöscht",
+        message: "Die Schicht wurde erfolgreich gelöscht",
+        color: "green",
+      });
+    } else {
+      notifications.show({
+        title: "Fehler",
+        message: "Die Schicht konnte nicht gelöscht werden",
+        color: "red",
+      });
+    }
+  };
+
   return (
-    <div
-      className="shift-to-apply"
-      onClick={() => {
-        setIsSlected((prev) => !prev);
-        props.onShiftClick && props.onShiftClick(props.shift.id);
-      }}
-    >
+    <div className="shift-to-apply">
       <div>{props.shift.name}</div>
       <div>{dayjs(props.shift.date).format("DD.MM.YYYY")}</div>
       <div>{dayjs(props.shift.startTime).format("HH:mm")}</div>
       <div>{dayjs(props.shift.endTime).format("HH:mm")}</div>
       {props.type === OpenShiftsTableType.PLAN && (
-        <Select
-          data={
-            data
-              ? data?.users.map<SelectItem>((user) => ({
-                  value: user.id,
-                  label: `${user.full_name} ${
-                    data.appliedShifts.find(
-                      (shift) => shift.user_id === user.id
-                    )
-                      ? "(Beworben)"
-                      : ""
-                  } `,
-                }))
-              : []
-          }
-          onChange={(value) => {
-            props.onSelectionChange &&
-              props.onSelectionChange(value, props.shift.id);
-          }}
-          clearable={true}
-        />
+        <div className="shift-to-apply-actions">
+          <Select
+            data={
+              data
+                ? data?.users.map<SelectItem>((user) => ({
+                    value: user.id,
+                    label: `${user.full_name} ${
+                      data.appliedShifts.find(
+                        (shift) => shift.user_id === user.id
+                      )
+                        ? "(Beworben)"
+                        : ""
+                    } `,
+                  }))
+                : []
+            }
+            onChange={(value) => {
+              props.onSelectionChange &&
+                props.onSelectionChange(value, props.shift.id);
+            }}
+            clearable={true}
+          />
+          <Trash
+            size={40}
+            className="shifts-to-apply-actions__delete"
+            onClick={handleDeleteShift}
+          />
+        </div>
       )}
       {props.type === OpenShiftsTableType.APPLY && (
         <Checkbox
+          className="shift-to-apply-checkbox"
           checked={isSelected}
           onChange={(event) => {
             event.stopPropagation();

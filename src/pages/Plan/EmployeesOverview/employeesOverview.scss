@@ -1,0 +1,50 @@
+.employees-overview {
+  grid-area: employees-overview;
+  gap: 1rem;
+  display: grid;
+  align-content: start;
+  height: fit-content;
+  background-color: var(--color-primary);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: var(--color-primary-contrast);
+  .employee-overview-headline {
+    font-size: large;
+    font-weight: bold;
+  }
+  .date-range-picker {
+    background-color: var(--color-primary-contrast);
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    align-items: center;
+  }
+  .employees-list {
+    padding: 0.5rem;
+    background-color: var(--color-primary-contrast);
+    border-radius: 0.5rem;
+    color: black;
+    display: grid;
+    &__item {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--color-primary);
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+      text-align: center;
+      align-items: center;
+    }
+    &__header {
+      gap: 0.5rem;
+      align-items: center;
+      border-bottom: 1px solid var(--color-primary);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+      text-align: center;
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+}

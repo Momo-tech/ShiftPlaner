@@ -8,5 +8,18 @@
   gap: 0.5rem;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  .shift-to-apply-actions {
+    &__delete {
+      cursor: pointer;
+      color: var(--color-secondary);
+    }
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .shift-to-apply-checkbox {
+    label {
+      color: white;
+    }
+  }
 }
