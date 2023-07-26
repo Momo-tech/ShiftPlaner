@@ -1,16 +1,21 @@
 .plan-shift-grid-container {
   display: grid;
   gap: 1rem;
-  grid-template-areas: "employees-overview" "openshift-table";
+  grid-template-areas: "employees-overview" "openshift-table" "calendar";
   @media (min-width: 1300px) {
-    grid-template-areas: "openshift-table employees-overview ";
+    grid-template-areas: "openshift-table employees-overview " "calendar calendar";
     grid-template-columns: 2fr 1fr;
   }
   &__employees-overview {
     grid-area: employees-overview;
   }
   &__table {
+    max-height: 600px;
+    overflow-y: auto;
     grid-area: openshift-table;
+  }
+  &__employees-calender {
+    grid-area: calendar;
   }
 }
 

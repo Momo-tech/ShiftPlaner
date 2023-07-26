@@ -1,6 +1,6 @@
 .shift-to-apply {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
   border-radius: 0.5rem;
   background-color: var(--color-primary);
   color: var(--color-primary-contrast);

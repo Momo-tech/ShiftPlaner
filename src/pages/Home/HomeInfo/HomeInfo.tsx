@@ -2,6 +2,7 @@ import { MonthPickerInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import { UserShift } from "models/UserShift";
 import { useState } from "react";
+import { useUserContext } from "util/context";
 import "./homeInfo.scss";
 import { calculateWorkHoursForShifts } from "./homeInfoUtil";
 
@@ -10,12 +11,17 @@ interface HomeInfoProps {
 }
 
 export const HomeInfo = (props: HomeInfoProps) => {
+  const user = useUserContext();
   const [month, setMonth] = useState<Date | null>(new Date());
   const filteredShits = props.shifts.filter(
     (shift) => dayjs(shift.date).month() === dayjs(month).month()
   );
-  const pastShifts = filteredShits.filter((shift) => dayjs(shift.date).isBefore(dayjs()));
-  const futureShifts = filteredShits.filter((shift) => dayjs(shift.date).isAfter(dayjs(), "day"));
+  const pastShifts = filteredShits.filter((shift) =>
+    dayjs(shift.date).isBefore(dayjs())
+  );
+  const futureShifts = filteredShits.filter((shift) =>
+    dayjs(shift.date).isAfter(dayjs(), "day")
+  );
   const workHoursPast = calculateWorkHoursForShifts(pastShifts);
   const workHoursFuture = calculateWorkHoursForShifts(futureShifts);
   const pauseHoursPast = pastShifts.reduce((acc, shift) => {
@@ -24,6 +30,9 @@ export const HomeInfo = (props: HomeInfoProps) => {
   const pauseHoursFuture = futureShifts.reduce((acc, shift) => {
     return acc + shift.pause;
   }, 0);
+  const wagesFuture = workHoursFuture * (user?.hourlyWage ?? 0);
+  const wagesPast = workHoursPast * (user?.hourlyWage ?? 0);
+
   return (
     <div className="home-info">
       <h2 className="home-info__header">
@@ -39,14 +48,21 @@ export const HomeInfo = (props: HomeInfoProps) => {
           </div>
         </div>
 
-
         <div className="home-info-data-box__item">
           <div>Stunden</div>
-          <div className="home-info-data-box__item--number">{workHoursPast}</div>
+          <div className="home-info-data-box__item--number">
+            {workHoursPast}
+          </div>
         </div>
         <div className="home-info-data-box__item">
           <div>Pause</div>
-          <div className="home-info-data-box__item--number">{pauseHoursPast}</div>
+          <div className="home-info-data-box__item--number">
+            {pauseHoursPast}
+          </div>
+        </div>
+        <div className="home-info-data-box__item">
+          <div>Lohn</div>
+          <div className="home-info-data-box__item--number">{wagesPast} €</div>
         </div>
       </div>
       <div className="home-info-data-box-header">Geplant</div>
@@ -59,11 +75,21 @@ export const HomeInfo = (props: HomeInfoProps) => {
         </div>
         <div className="home-info-data-box__item">
           <div>Stunden</div>
-          <div className="home-info-data-box__item--number">{workHoursFuture}</div>
+          <div className="home-info-data-box__item--number">
+            {workHoursFuture}
+          </div>
         </div>
         <div className="home-info-data-box__item">
           <div>Pause</div>
-          <div className="home-info-data-box__item--number">{pauseHoursFuture}</div>
+          <div className="home-info-data-box__item--number">
+            {pauseHoursFuture}
+          </div>
+        </div>
+        <div className="home-info-data-box__item">
+          <div>Lohn</div>
+          <div className="home-info-data-box__item--number">
+            {wagesFuture} €
+          </div>
         </div>
       </div>
     </div>

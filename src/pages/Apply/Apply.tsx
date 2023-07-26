@@ -4,6 +4,7 @@ import {
   OpenShiftsTable,
   OpenShiftsTableType,
 } from "components/OpenShiftsTable/OpenShiftsTable";
+import dayjs from "dayjs";
 import { OpenShift } from "models/OpenShift";
 import { useEffect, useState } from "react";
 import { applyToShifts } from "supabase/appliedShiftFunction";
@@ -18,7 +19,9 @@ export const Apply = () => {
   const getOpenShiftsFromSupabase = async () => {
     if (!user) return;
     const openShifts = await getOpenShifts(user.com_id);
-    setOpenShifts(openShifts ?? []);
+    setOpenShifts(
+      openShifts?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? []
+    );
   };
 
   useEffect(() => {

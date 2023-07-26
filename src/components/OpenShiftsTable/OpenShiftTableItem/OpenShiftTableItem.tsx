@@ -1,4 +1,4 @@
-import { Checkbox, Select, SelectItem } from "@mantine/core";
+import { Button, Checkbox, Select, SelectItem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
 import { AppliedShift } from "models/AppliedShift";
@@ -97,11 +97,12 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
             }}
             clearable={true}
           />
-          <Trash
-            size={40}
-            className="shift-to-apply-actions__delete"
-            onClick={handleDeleteShift}
-          />
+          <Button onClick={handleDeleteShift}>
+            <Trash
+              className="shift-to-apply-actions__delete"
+              onClick={handleDeleteShift}
+            />
+          </Button>
         </div>
       )}
       {props.type === OpenShiftsTableType.APPLY && (

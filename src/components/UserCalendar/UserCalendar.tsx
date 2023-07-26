@@ -2,13 +2,13 @@ import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin
 import FullCalendar from "@fullcalendar/react";
 import dayjs from "dayjs";
 import { UserShift } from "../../models/UserShift";
-import "./calendar.scss";
+import "./userCalendar.scss";
 
-interface CalendarPropos {
+interface UserCalendarPropos {
   userShifts: UserShift[];
 }
 
-export function Calendar(props: CalendarPropos) {
+export function UserCalendar(props: UserCalendarPropos) {
   return (
     <FullCalendar
       headerToolbar={{

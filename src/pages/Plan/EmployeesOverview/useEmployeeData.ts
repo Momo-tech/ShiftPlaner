@@ -37,47 +37,60 @@ export function useEmployeeData(
 
   useEffect(() => {
     handleGetUserShifts();
-  }, [startDate, endDate, companyId]);
+  }, [startDate.toISOString(), endDate.toISOString(), companyId]);
 
-  const employeeDate = useMemo(() => {
+  const employeeData = useMemo(() => {
     const employeeData: EmployeeData[] = [];
     userShifts.forEach((userShift) => {
       const exitingData = employeeData.find(
         (data) => data.employeeId === userShift.user_id
       );
       if (exitingData) {
-        exitingData.shifts += 1;
+        exitingData.shiftAmount += 1;
         exitingData.hours += dayjs(userShift.endTime).diff(
           dayjs(userShift.startTime),
           "hour"
         );
+        exitingData.shifts.push(userShift);
       } else {
         const employee = employees.find(
           (employee) => employee.id === userShift.user_id
         );
-        if (!employee) return;
+        if (!employee) {
+          return;
+        }
         employeeData.push({
           employeeId: employee.id,
           hours: dayjs(userShift.endTime).diff(
             dayjs(userShift.startTime),
             "hour"
           ),
-          shifts: 1,
-          name: employee.full_name,
+          shifts: [userShift],
+          shiftAmount: 1,
+          employeeName: employee.full_name,
           targetHours: employee.targetHours,
         });
       }
     });
     return employeeData;
-  }, [userShifts, employees]);
+  }, [
+    userShifts
+      .map(
+        (shift) =>
+          shift.id + shift.startTime.toISOString() + shift.endTime.toISOString()
+      )
+      .sort(),
+    employees.map((employee) => employee.id).sort(),
+  ]);
 
-  return employeeDate;
+  return employeeData;
 }
 
 interface EmployeeData {
   employeeId: User["id"];
-  shifts: number;
+  shifts: UserShift[];
+  shiftAmount: number;
   hours: number;
-  name: string;
+  employeeName: string;
   targetHours: number;
 }

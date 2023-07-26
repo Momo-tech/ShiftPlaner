@@ -2,7 +2,7 @@ import { UserShift } from "models/UserShift";
 import { useEffect, useState } from "react";
 import { getUserShifts } from "supabase/userShiftFunctions";
 import { useUserContext } from "util/context";
-import { Calendar } from "../../components/Calendar/Calendar";
+import { UserCalendar } from "../../components/UserCalendar/UserCalendar";
 import { HomeInfo } from "./HomeInfo/HomeInfo";
 import "./home.scss";
 export const Home = () => {
@@ -25,7 +25,7 @@ export const Home = () => {
       <h2>Übersicht</h2>
       <div className="home-page-grid">
         <div className="home-page-grid__calender">
-          <Calendar userShifts={userShifts} />
+          <UserCalendar userShifts={userShifts} />
         </div>
         <div className="home-page-grid__info">
           <HomeInfo shifts={userShifts} />

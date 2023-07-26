@@ -7,6 +7,7 @@ import { Repeats, Shift, getNameForRepeats } from "models/Shift";
 import { useState } from "react";
 import { createShift } from "supabase/shiftFunctions";
 import { useUserContext } from "util/context";
+import "./createShiftModal.scss";
 
 interface CreateShiftModalProps {
   isOpen: boolean;
@@ -56,6 +57,7 @@ export const CreateShiftModal = (props: CreateShiftModalProps) => {
     <Modal
       opened={props.isOpen}
       onClose={props.onClose}
+      className="create-shift-modal"
       title="Schicht erstellen"
       size="md"
     >

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getOpenShifts } from "supabase/openShiftFunction";
 import { assignOpenShiftToUser } from "supabase/userShiftFunctions";
 import { useUserContext } from "util/context";
+import { EmployeeShiftCalender } from "./EmployeeShiftCalendar/EmployeeShiftCalendar";
 import { EmployeesOverview } from "./EmployeesOverview/EmployeesOverview";
 import "./plan.scss";
 
@@ -91,6 +92,9 @@ export const Plan = () => {
             </div>
             <div className="plan-shift-grid-container__employees-overview">
               <EmployeesOverview />
+            </div>
+            <div className="plan-shift-grid-container__employees-calender">
+              <EmployeeShiftCalender />
             </div>
           </div>
           <div className="plan-button-container">

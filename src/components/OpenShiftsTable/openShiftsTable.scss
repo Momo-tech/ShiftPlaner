@@ -1,7 +1,7 @@
 .open-shifts-table {
   &__header-line {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
     margin-bottom: 1rem;
   }
   &__table {

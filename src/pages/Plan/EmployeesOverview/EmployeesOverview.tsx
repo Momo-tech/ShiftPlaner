@@ -41,9 +41,9 @@ export const EmployeesOverview = () => {
         </div>
         {employeeData.map((data) => (
           <div className="employees-list__item" key={data.employeeId}>
-            <div>{data.name}</div>
+            <div>{data.employeeName}</div>
             <div>{data.hours} </div>
-            <div>{data.shifts}</div>
+            <div>{data.shiftAmount}</div>
             <div>{data.targetHours}</div>
           </div>
         ))}
