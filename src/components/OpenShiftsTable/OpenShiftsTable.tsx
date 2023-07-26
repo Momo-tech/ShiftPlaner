@@ -1,21 +1,22 @@
-import { User } from "@supabase/supabase-js";
-import { OpenShift } from "models/OpenShift";
-import { OpenShiftTableItem } from "./OpenShiftTableItem/OpenShiftTableItem";
-import "./openShiftsTable.scss";
+import { User } from '@supabase/supabase-js';
+import { OpenShift } from 'models/OpenShift';
+import { OpenShiftTableItem } from './OpenShiftTableItem/OpenShiftTableItem';
+import './openShiftsTable.scss';
 
 export enum OpenShiftsTableType {
-  APPLY = "APPLY",
-  PLAN = "PLAN",
+  APPLY = 'APPLY',
+  PLAN = 'PLAN'
 }
 
 interface OpenShiftsTableProps {
   shifts: OpenShift[];
   type: OpenShiftsTableType;
-  onShiftItemClick?: (shiftId: OpenShift["id"]) => void;
+  onShiftItemClick?: (shiftId: OpenShift['id']) => void;
   onSelectionChange?: (
-    userId: User["id"] | null,
-    openShiftId: OpenShift["id"]
+    userId: User['id'] | null,
+    openShiftId: OpenShift['id']
   ) => void;
+  onDelete?: (shiftId: OpenShift['id']) => void;
 }
 export const OpenShiftsTable = (props: OpenShiftsTableProps) => {
   return (
@@ -35,6 +36,7 @@ export const OpenShiftsTable = (props: OpenShiftsTableProps) => {
             type={props.type}
             onSelectionChange={props.onSelectionChange}
             onShiftClick={props.onShiftItemClick}
+            onDelete={props.onDelete}
           />
         ))}
       </div>

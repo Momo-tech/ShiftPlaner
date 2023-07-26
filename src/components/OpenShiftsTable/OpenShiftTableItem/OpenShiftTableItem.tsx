@@ -27,6 +27,7 @@ interface OpenShiftTableItemProps {
     userId: User['id'] | null,
     openShiftId: OpenShift['id']
   ) => void;
+  onDelete?: (shiftId: OpenShift['id']) => void;
 }
 
 export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
@@ -39,7 +40,7 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
     if (!user) {
       return;
     }
-    //Fixme craete context for this or it will be called for every item
+    //FIXME craete context for this or it will be called for every item
     const appliedShifts = await getAllAppliedShiftsForCompanyAndOpenShift(
       user.com_id,
       props.shift.id
@@ -72,6 +73,7 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
         color: 'red'
       });
     }
+    props.onDelete && props.onDelete(props.shift.id);
   };
 
   return (

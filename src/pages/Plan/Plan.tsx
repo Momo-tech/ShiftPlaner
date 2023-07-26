@@ -1,18 +1,19 @@
-import { Button } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+import { Button } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import {
   OpenShiftsTable,
-  OpenShiftsTableType,
-} from "components/OpenShiftsTable/OpenShiftsTable";
-import { StyledLoading } from "components/StyledLoading/StyledLoading";
-import { OpenShift } from "models/OpenShift";
-import { useEffect, useState } from "react";
-import { getOpenShifts } from "supabase/openShiftFunction";
-import { assignOpenShiftToUser } from "supabase/userShiftFunctions";
-import { useUserContext } from "util/context";
-import { EmployeeShiftCalender } from "./EmployeeShiftCalendar/EmployeeShiftCalendar";
-import { EmployeesOverview } from "./EmployeesOverview/EmployeesOverview";
-import "./plan.scss";
+  OpenShiftsTableType
+} from 'components/OpenShiftsTable/OpenShiftsTable';
+import { StyledLoading } from 'components/StyledLoading/StyledLoading';
+import { OpenShift } from 'models/OpenShift';
+import { useEffect, useState } from 'react';
+import { getOpenShifts } from 'supabase/openShiftFunction';
+import { assignOpenShiftToUser } from 'supabase/userShiftFunctions';
+import { useUserContext } from 'util/context';
+import { EmployeeShiftCalender } from './EmployeeShiftCalendar/EmployeeShiftCalendar';
+import { EmployeesOverview } from './EmployeesOverview/EmployeesOverview';
+import './plan.scss';
+import dayjs from 'dayjs';
 
 export const Plan = () => {
   const [openShifts, setOpenShifts] = useState<OpenShift[]>([]);
@@ -28,14 +29,14 @@ export const Plan = () => {
     if (!user) return;
     setIsLoading(true);
     const openShifts = await getOpenShifts(user.com_id);
-    setOpenShifts(openShifts ?? []);
+    setOpenShifts(openShifts?.sort((a, b) => dayjs(a.date).diff(b.date)) ?? []);
     setIsLoading(false);
   };
   useEffect(() => {
     getOpenShiftsFromSupabase();
   }, []);
 
-  const handleShiftClick = (shiftId: OpenShift["id"]) => {
+  const handleShiftClick = (shiftId: OpenShift['id']) => {
     if (selectedShiftIds.includes(shiftId)) {
       setSelectedShiftsIds(selectedShiftIds.filter((id) => id !== shiftId));
     } else {
@@ -58,10 +59,10 @@ export const Plan = () => {
       if (!result) success = false;
     }
     notifications.show({
-      title: success ? "Erstellt" : "Fehler",
+      title: success ? 'Erstellt' : 'Fehler',
       message: success
-        ? "Schichten erstellt"
-        : "Es ist ein Fehler aufgetretten, versuche es später erneut.",
+        ? 'Schichten erstellt'
+        : 'Es ist ein Fehler aufgetretten, versuche es später erneut.'
     });
     setIsSubmitting(false);
     getOpenShiftsFromSupabase();
@@ -69,7 +70,7 @@ export const Plan = () => {
 
   const handleSelectionChange = (
     userId: string | null,
-    openShiftId: OpenShift["id"]
+    openShiftId: OpenShift['id']
   ) => {
     setShiftsToAssign((prev) => ({ ...prev, [openShiftId]: userId }));
   };
@@ -88,12 +89,17 @@ export const Plan = () => {
                 shifts={openShifts}
                 onShiftItemClick={handleShiftClick}
                 onSelectionChange={handleSelectionChange}
+                onDelete={(shiftId) =>
+                  setOpenShifts(
+                    openShifts.filter((shift) => shift.id !== shiftId)
+                  )
+                }
               />
-          <div className="plan-button-container">
-            <Button loading={isSubmitting} onClick={handleAssignOpenShift}>
-              Zuweisen
-            </Button>
-          </div>
+              <div className="plan-button-container">
+                <Button loading={isSubmitting} onClick={handleAssignOpenShift}>
+                  Zuweisen
+                </Button>
+              </div>
             </div>
             <div className="plan-shift-grid-container__employees-overview">
               <EmployeesOverview />
