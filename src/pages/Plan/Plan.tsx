@@ -89,6 +89,11 @@ export const Plan = () => {
                 onShiftItemClick={handleShiftClick}
                 onSelectionChange={handleSelectionChange}
               />
+          <div className="plan-button-container">
+            <Button loading={isSubmitting} onClick={handleAssignOpenShift}>
+              Zuweisen
+            </Button>
+          </div>
             </div>
             <div className="plan-shift-grid-container__employees-overview">
               <EmployeesOverview />
@@ -96,11 +101,6 @@ export const Plan = () => {
             <div className="plan-shift-grid-container__employees-calender">
               <EmployeeShiftCalender />
             </div>
-          </div>
-          <div className="plan-button-container">
-            <Button loading={isSubmitting} onClick={handleAssignOpenShift}>
-              Zuweisen
-            </Button>
           </div>
         </>
       )}

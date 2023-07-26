@@ -59,6 +59,28 @@ export async function getAllShiftsInDateRange(
   }
 }
 
+export async function updateUserShift(
+  userShift: UserShift,
+)
+{
+  const { error } = await supabase
+    .from("user_shift")
+    .update({
+      start_time: userShift.startTime,
+      end_time: userShift.endTime,
+      user_id: userShift.user_id,
+      date: userShift.date,
+      break: userShift.break,
+    })
+    .eq("id", Number(userShift.id));
+  if (error) {
+    console.error(error);
+    return false;
+  } else {
+    return true;
+  }
+}
+
 export async function getUserShifts(
   userId: User["id"],
   company_id: Company["id"],

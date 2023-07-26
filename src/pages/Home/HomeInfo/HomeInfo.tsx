@@ -1,10 +1,10 @@
-import { MonthPickerInput } from "@mantine/dates";
-import dayjs from "dayjs";
-import { UserShift } from "models/UserShift";
-import { useState } from "react";
-import { useUserContext } from "util/context";
-import "./homeInfo.scss";
-import { calculateWorkHoursForShifts } from "./homeInfoUtil";
+import { MonthPickerInput } from '@mantine/dates';
+import dayjs from 'dayjs';
+import { UserShift } from 'models/UserShift';
+import { useState } from 'react';
+import { useUserContext } from 'util/context';
+import './homeInfo.scss';
+import { calculateWorkHoursForShifts } from './homeInfoUtil';
 
 interface HomeInfoProps {
   shifts: UserShift[];
@@ -20,15 +20,15 @@ export const HomeInfo = (props: HomeInfoProps) => {
     dayjs(shift.date).isBefore(dayjs())
   );
   const futureShifts = filteredShits.filter((shift) =>
-    dayjs(shift.date).isAfter(dayjs(), "day")
+    dayjs(shift.date).isAfter(dayjs(), 'day')
   );
   const workHoursPast = calculateWorkHoursForShifts(pastShifts);
   const workHoursFuture = calculateWorkHoursForShifts(futureShifts);
   const pauseHoursPast = pastShifts.reduce((acc, shift) => {
-    return acc + shift.pause;
+    return acc + shift.break;
   }, 0);
   const pauseHoursFuture = futureShifts.reduce((acc, shift) => {
-    return acc + shift.pause;
+    return acc + shift.break;
   }, 0);
   const wagesFuture = workHoursFuture * (user?.hourlyWage ?? 0);
   const wagesPast = workHoursPast * (user?.hourlyWage ?? 0);
@@ -36,7 +36,7 @@ export const HomeInfo = (props: HomeInfoProps) => {
   return (
     <div className="home-info">
       <h2 className="home-info__header">
-        Info{" "}
+        Info{' '}
         <MonthPickerInput value={month} onChange={(value) => setMonth(value)} />
       </h2>
       <div className="home-info-data-box-header">Vergangene</div>

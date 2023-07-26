@@ -1,17 +1,21 @@
-import { DateInput } from "@mantine/dates";
-import dayjs from "dayjs";
-import { useState } from "react";
-import { useUserContext } from "util/context";
-import "./employeesOverview.scss";
-import { useEmployeeData } from "./useEmployeeData";
+import { DateInput } from '@mantine/dates';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useUserContext } from 'util/context';
+import './employeesOverview.scss';
+import { useEmployeeData } from './useEmployeeData';
 
 export const EmployeesOverview = () => {
   const [startDate, setStartDate] = useState<Date>(
-    dayjs().startOf("month").toDate()
+    dayjs().startOf('month').toDate()
   );
-  const [endDate, setEndDate] = useState<Date>(dayjs().endOf("month").toDate());
+  const [endDate, setEndDate] = useState<Date>(dayjs().endOf('month').toDate());
   const user = useUserContext();
-  const employeeData = useEmployeeData(startDate, endDate, user?.com_id);
+  const { data: employeeData } = useEmployeeData(
+    startDate,
+    endDate,
+    user?.com_id
+  );
 
   return (
     <div className="employees-overview">

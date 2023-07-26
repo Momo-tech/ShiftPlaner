@@ -9,7 +9,7 @@ export function useEmployeeData(
   startDate: Date,
   endDate: Date,
   companyId: string | undefined
-): EmployeeData[] {
+): { data: EmployeeData[], onUserShiftUpdate: (updatedUserShift: UserShift) => void } {
   const [userShifts, setUserShifts] = useState<UserShift[]>([]);
   const [employees, setEmployees] = useState<User[]>([]);
   const handleGetUserShifts = async () => {
@@ -22,6 +22,7 @@ export function useEmployeeData(
       startDate,
       endDate,
     ]);
+    console.log(userShifts)
     setUserShifts(userShifts ?? []);
   };
 
@@ -39,6 +40,10 @@ export function useEmployeeData(
     handleGetUserShifts();
   }, [startDate.toISOString(), endDate.toISOString(), companyId]);
 
+  const onUserShiftUpdate = (updatedUserShift: UserShift) => {
+    setUserShifts((prevUserShifts) => [...prevUserShifts.filter( shift => shift.id === shift.id), updatedUserShift]);
+  };
+  
   const employeeData = useMemo(() => {
     const employeeData: EmployeeData[] = [];
     userShifts.forEach((userShift) => {
@@ -77,13 +82,13 @@ export function useEmployeeData(
     userShifts
       .map(
         (shift) =>
-          shift.id + shift.startTime.toISOString() + shift.endTime.toISOString()
+          shift.id + shift.user_id +  shift.startTime.toISOString() + shift.endTime.toISOString()
       )
       .sort(),
     employees.map((employee) => employee.id).sort(),
   ]);
 
-  return employeeData;
+  return {data: employeeData, onUserShiftUpdate};
 }
 
 interface EmployeeData {
