@@ -1,17 +1,17 @@
-import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import { Role } from "models/User";
-import React from "react";
-import { useNavigate } from "react-router";
-import { APPLY, CREATESHIFTS, HOME, LOGIN, PLAN, SHIFTS } from "routes";
+import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { Role } from 'models/User';
+import React from 'react';
+import { useNavigate } from 'react-router';
+import { APPLY, CREATESHIFTS, HOME, LOGIN, PLAN, SHIFTS } from 'routes';
 import {
   CalendarPlus,
   CalendarTime,
   Home,
   Login,
-  Send,
-} from "tabler-icons-react";
-import { useUserContext } from "util/context";
+  Send
+} from 'tabler-icons-react';
+import { useUserContext } from 'util/context';
 
 interface MainLinkProps {
   icon: React.ReactNode;
@@ -22,24 +22,24 @@ interface MainLinkProps {
 
 function MainLink({ icon, color, label, route }: MainLinkProps) {
   const navigate = useNavigate();
-  const biggerThanSmallScreenSize = useMediaQuery("(min-width: 48em)");
+  const biggerThanSmallScreenSize = useMediaQuery('(min-width: 1000px)');
 
   return (
     <UnstyledButton
       sx={(theme) => ({
-        display: "block",
-        width: "100%",
+        display: 'block',
+        width: '100%',
         padding: theme.spacing.xs,
         borderRadius: theme.radius.sm,
         color:
-          theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+          theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 
-        "&:hover": {
+        '&:hover': {
           backgroundColor:
-            theme.colorScheme === "dark"
+            theme.colorScheme === 'dark'
               ? theme.colors.dark[6]
-              : theme.colors.gray[0],
-        },
+              : theme.colors.gray[0]
+        }
       })}
       onClick={() => navigate(route)}
     >
@@ -57,47 +57,47 @@ function MainLink({ icon, color, label, route }: MainLinkProps) {
 const data = [
   {
     icon: <Home />,
-    color: "green",
-    label: "Home",
+    color: 'green',
+    label: 'Home',
     route: HOME,
-    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER]
   },
   {
     icon: <CalendarTime size="1rem" />,
-    color: "blue",
-    label: "Schichten",
+    color: 'blue',
+    label: 'Schichten',
     route: SHIFTS,
-    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER]
   },
   {
     icon: <Send size="1rem" />,
-    color: "violet",
-    label: "Bewerben",
+    color: 'violet',
+    label: 'Bewerben',
     route: APPLY,
-    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER],
+    acces: [Role.EMPLOYEE, Role.OWNER, Role.PLANER]
   },
   {
     icon: <CalendarTime />,
-    color: "green",
-    label: "Planen",
+    color: 'green',
+    label: 'Planen',
     route: PLAN,
-    acces: [Role.OWNER, Role.PLANER],
+    acces: [Role.OWNER, Role.PLANER]
   },
   {
     icon: <CalendarPlus />,
-    color: "green",
-    label: "Schichten erstellen",
+    color: 'green',
+    label: 'Schichten erstellen',
     route: CREATESHIFTS,
-    acces: [Role.OWNER, Role.PLANER],
-  },
+    acces: [Role.OWNER, Role.PLANER]
+  }
 ];
 const noUserData = [
   {
     icon: <Login />,
-    color: "green",
-    label: "Login",
-    route: LOGIN,
-  },
+    color: 'green',
+    label: 'Login',
+    route: LOGIN
+  }
 ];
 
 export function MainLinks() {

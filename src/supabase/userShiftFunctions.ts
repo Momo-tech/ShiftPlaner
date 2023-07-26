@@ -63,7 +63,7 @@ export async function updateUserShift(
   userShift: UserShift,
 )
 {
-  const { error } = await supabase
+  const {error } = await supabase
     .from("user_shift")
     .update({
       start_time: userShift.startTime,

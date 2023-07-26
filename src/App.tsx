@@ -43,7 +43,7 @@ export default function App() {
 
   useEffect(() => {
     handleGetUsers();
-  }, [user]);
+  }, [user?.id]);
 
   const handleGetUsers = async () => {
     if (user?.com_id) {

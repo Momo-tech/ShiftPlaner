@@ -39,6 +39,7 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
     if (!user) {
       return;
     }
+    //Fixme craete context for this or it will be called for every item
     const appliedShifts = await getAllAppliedShiftsForCompanyAndOpenShift(
       user.com_id,
       props.shift.id
@@ -49,7 +50,12 @@ export const OpenShiftTableItem = (props: OpenShiftTableItemProps) => {
     if (props.type === OpenShiftsTableType.PLAN) {
       handleGetData();
     }
-  }, []);
+  }, [
+    users
+      .map((user) => user.id)
+      .sort()
+      .join(',')
+  ]);
 
   const handleDeleteShift = async () => {
     const sucess = await deleteOpenShift(props.shift.id);

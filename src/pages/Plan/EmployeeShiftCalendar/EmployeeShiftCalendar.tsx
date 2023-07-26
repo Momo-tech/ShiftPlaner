@@ -67,6 +67,7 @@ export function EmployeeShiftCalender() {
             }))
           )
         ]}
+        displayEventEnd
         eventClick={(info) => {
           const shift = allShifts.find(
             (shift) => Number(shift.id) === Number(info.event.id)

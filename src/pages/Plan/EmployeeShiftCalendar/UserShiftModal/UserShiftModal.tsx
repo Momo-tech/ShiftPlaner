@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { UserShift } from 'models/UserShift';
 import { useEffect, useState } from 'react';
 import { updateUserShift } from 'supabase/userShiftFunctions';
+import { useUserContext } from 'util/context';
 
 interface UserShiftModalProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ interface UserShiftModalProps {
 export const UserShiftModal = (props: UserShiftModalProps) => {
   const [userShift, setUserShift] = useState<UserShift>(props.userShift);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const user = useUserContext();
   useEffect(() => {
     setUserShift(props.userShift);
   }, [props.userShift.id]);
@@ -51,6 +52,9 @@ export const UserShiftModal = (props: UserShiftModalProps) => {
   };
 
   const handleSave = () => {
+    if (!user) {
+      return;
+    }
     setIsSubmitting(true);
     const saved = updateUserShift(userShift);
     if (!saved) {

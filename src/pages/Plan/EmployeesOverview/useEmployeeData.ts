@@ -22,7 +22,6 @@ export function useEmployeeData(
       startDate,
       endDate,
     ]);
-    console.log(userShifts)
     setUserShifts(userShifts ?? []);
   };
 
