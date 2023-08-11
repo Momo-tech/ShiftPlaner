@@ -1,13 +1,12 @@
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import FullCalendar from '@fullcalendar/react';
 import dayjs from 'dayjs';
+import { UserShift } from 'models/UserShift';
 import { useEffect, useRef, useState } from 'react';
 import { useUserContext } from 'util/context';
 import { useEmployeeData } from '../EmployeesOverview/useEmployeeData';
-import './employeeShiftCalendar.scss';
-import { UserShift } from 'models/UserShift';
 import { UserShiftModal } from './UserShiftModal/UserShiftModal';
-import { updateUserShift } from 'supabase/userShiftFunctions';
+import './employeeShiftCalendar.scss';
 
 export function EmployeeShiftCalender() {
   const user = useUserContext();
@@ -75,7 +74,6 @@ export function EmployeeShiftCalender() {
           if (!shift) {
             return;
           }
-          console.log(shift);
           setSelectedShift(shift);
           setIsModalOpen(true);
         }}
