@@ -1,10 +1,10 @@
-import { UserShift } from "models/UserShift";
-import { useEffect, useState } from "react";
-import { getUserShifts } from "supabase/userShiftFunctions";
-import { useUserContext } from "util/context";
-import { UserCalendar } from "../../components/UserCalendar/UserCalendar";
-import { HomeInfo } from "./HomeInfo/HomeInfo";
-import "./home.scss";
+import { UserShift } from 'models/UserShift';
+import { useEffect, useState } from 'react';
+import { getUserShifts } from 'supabase/userShiftFunctions';
+import { useUserContext } from 'util/context';
+import { UserCalendar } from '../../components/UserCalendar/UserCalendar';
+import { HomeInfo } from './HomeInfo/HomeInfo';
+import './home.scss';
 export const Home = () => {
   const user = useUserContext();
   const [userShifts, setUserShifts] = useState<UserShift[]>([]);
@@ -14,7 +14,6 @@ export const Home = () => {
 
   const handleGetUserShifts = async () => {
     if (!user) {
-      console.error("missing user");
       return;
     }
     const userShifts = await getUserShifts(user.id, user.com_id);

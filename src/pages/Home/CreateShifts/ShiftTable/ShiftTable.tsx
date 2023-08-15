@@ -1,10 +1,10 @@
-import { Button } from "@mantine/core";
-import dayjs from "dayjs";
-import { Shift } from "models/Shift";
-import { useState } from "react";
-import { Plus } from "tabler-icons-react";
-import { CreateNewOpenShiftModal } from "./CreateNewUserShiftModal/CreateNewOpenShiftModal";
-import "./shiftTable.scss";
+import { Button } from '@mantine/core';
+import dayjs from 'dayjs';
+import { Shift } from 'models/Shift';
+import { useState } from 'react';
+import { Plus } from 'tabler-icons-react';
+import { CreateNewOpenShiftModal } from './CreateNewUserShiftModal/CreateNewOpenShiftModal';
+import './shiftTable.scss';
 
 interface IShiftTableProps {
   shifts: Shift[];
@@ -27,8 +27,8 @@ export const ShiftTable = (props: IShiftTableProps) => {
         {props.shifts.map((shift) => (
           <div className="shift-table-item" key={shift.id}>
             <div>{shift.name}</div>
-            <div>{dayjs(shift.startTime).format("HH:mm")}</div>
-            <div>{dayjs(shift.endTime).format("HH:mm")}</div>
+            <div>{dayjs(shift.startTime).format('HH:mm')}</div>
+            <div>{dayjs(shift.endTime).format('HH:mm')}</div>
             <div>{shift.repeats}</div>
             <div>
               <Button
@@ -39,7 +39,7 @@ export const ShiftTable = (props: IShiftTableProps) => {
                   setSelectedShiftId(shift);
                 }}
               >
-                <Plus /> Nutzer Schicht
+                <Plus /> Mitarbeiter Schicht
               </Button>
             </div>
           </div>
