@@ -1,5 +1,10 @@
 # Master Thesis Experiment
 
+This Repo is main purpose is to emulate a business MVP for my Master Thesis AI Experiment.  
+If you are willing to participate and support my master thesis please
+go to [this page](https://matthiasmoser.com) start the experiment from there.
+It will only take between 20-40 minutes depending on your skill level.
+
 ## Task Setup
 
 Please answer the questionary at "Placeholder" beforehand use the code you
