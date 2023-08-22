@@ -75,14 +75,14 @@ This uses a remote database of supabase therefore no need for local development,
 
 # Test Accounts Login
 
-Role: Emoployee
-Name test@test.de
+Role: Emoployee  
+Name employee@test.de  
 Password: test123
 
-Role: Planer
-Name: planer@test.de
+Role: Planer  
+Name: planer@test.de  
 Password: test123
 
-Role: Owner
-Name: owner@test.de
+Role: Owner  
+Name: owner@test.de  
 Password: test123
