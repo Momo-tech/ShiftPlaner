@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { getUserShifts } from 'supabase/userShiftFunctions';
 import { useUserContext } from 'util/context';
 import { UserCalendar } from '../../components/UserCalendar/UserCalendar';
-import { HomeInfo } from './HomeInfo/HomeInfo';
 import './home.scss';
 export const Home = () => {
   const user = useUserContext();
@@ -25,9 +24,6 @@ export const Home = () => {
       <div className="home-page-grid">
         <div className="home-page-grid__calender">
           <UserCalendar userShifts={userShifts} />
-        </div>
-        <div className="home-page-grid__info">
-          <HomeInfo shifts={userShifts} />
         </div>
       </div>
     </div>
