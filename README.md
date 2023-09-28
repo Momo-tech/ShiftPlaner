@@ -69,6 +69,14 @@ Run Locally
 npm run dev
 ```
 
+# Tests
+
+Run Test
+
+```console
+npm test
+```
+
 # Database
 
 This uses a remote database of supabase therefore no need for local development, internet access is still needed.
