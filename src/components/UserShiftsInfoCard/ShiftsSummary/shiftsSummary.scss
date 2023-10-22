@@ -1,0 +1,17 @@
+.shifts-summary {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #000;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+  }
+}
