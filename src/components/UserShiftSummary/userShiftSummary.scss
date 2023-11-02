@@ -1,0 +1,38 @@
+.home-page-grid {
+  &__shift-overview {
+	border-radius: 0.5rem;
+	background-color: #285943;
+	padding: 30px 16px;
+
+	h4 {
+		color: white;
+		margin-bottom: 0;
+	}
+
+	.mantine-InputWrapper-root {
+		display: flex;
+		align-items: center;
+
+		label {
+			font-size: 20px;
+			color: white;
+			margin-right: 10px;
+		}
+	}
+
+	.list-group {
+		padding: 0;
+		margin-top: 5px;
+		background: white;
+		color: black;
+		border-radius: 0.5rem;
+		
+		li {
+			display: flex;
+			justify-content: space-between;
+			padding: 12px;
+		}
+	}
+  }
+}
+
