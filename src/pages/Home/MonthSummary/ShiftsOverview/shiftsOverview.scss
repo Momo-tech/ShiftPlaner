@@ -1,0 +1,12 @@
+.shifts-overview-box{
+    display: grid;
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem;
+    &__row{
+        border-bottom: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+    }
+}
