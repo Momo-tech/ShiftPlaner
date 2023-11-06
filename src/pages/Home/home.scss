@@ -13,4 +13,9 @@
       background-color: var(--color-light);
     }
   }
+  &__summary {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: var(--color-primary);
+  }
 }

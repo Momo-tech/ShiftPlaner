@@ -1,0 +1,35 @@
+.user-shift-summary {
+    &__heading {
+        padding-top: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    &__date-chip {
+        background: var(--color-light);
+        color: var(--color-light-contrast);
+        font-size: 1rem;
+        padding: .5rem;
+        border-radius: 0.25rem;
+        font-weight: 400;
+        margin-left: 1rem;
+    }
+    &__stat-group {
+        border-radius: 0.5rem;
+        background-color: var(--color-light);
+        color: var(--color-light-contrast);
+
+        > .user-shift-summary__stat {
+            border-bottom: 1px var(--color-light-contrast) solid;
+        }
+        > .user-shift-summary__stat:last-child {
+            border-bottom: none;
+        }
+    }
+    &__stat {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        padding: 0 1rem;
+    }
+}
