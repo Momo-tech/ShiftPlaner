@@ -4,6 +4,8 @@ import { getUserShifts } from 'supabase/userShiftFunctions';
 import { useUserContext } from 'util/context';
 import { UserCalendar } from '../../components/UserCalendar/UserCalendar';
 import './home.scss';
+import { MonthlyOverview } from './MonthlyOverview/MonthlyOverview.tsx';
+
 export const Home = () => {
   const user = useUserContext();
   const [userShifts, setUserShifts] = useState<UserShift[]>([]);
@@ -21,10 +23,11 @@ export const Home = () => {
   return (
     <div>
       <h2>Übersicht</h2>
-      <div className="home-page-grid">
-        <div className="home-page-grid__calender">
+      <div className='home-page-grid'>
+        <div className='home-page-grid__calender'>
           <UserCalendar userShifts={userShifts} />
         </div>
+        <MonthlyOverview allShifts={userShifts} />
       </div>
     </div>
   );
