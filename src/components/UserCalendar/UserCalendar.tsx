@@ -6,6 +6,7 @@ import "./userCalendar.scss";
 
 interface UserCalendarPropos {
   userShifts: UserShift[];
+  onDateRangeChange: (range: [Date, Date]) => void;
 }
 
 export function UserCalendar(props: UserCalendarPropos) {
@@ -28,6 +29,9 @@ export function UserCalendar(props: UserCalendarPropos) {
         })),
       ]}
       initialView="dayGridMonth"
+      datesSet={value => {
+        props.onDateRangeChange([value.view.activeStart, value.view.activeEnd]);
+      }}
     />
   );
 }
