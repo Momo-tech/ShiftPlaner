@@ -1,0 +1,14 @@
+.monthly-overview {
+  background-color: var(--color-primary);
+  border-radius: 0.5rem;
+
+  &__header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    padding: 1rem;
+  }
+}
