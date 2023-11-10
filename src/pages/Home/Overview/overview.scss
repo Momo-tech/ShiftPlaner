@@ -1,0 +1,19 @@
+.overview{
+    display: grid;
+    padding: 1rem;
+    background-color: var(--color-primary);
+    gap: 1rem;
+    color: white;
+    .overview-shift-box{
+        background-color: aliceblue;
+        color: black;
+        display: grid;
+        border-radius: 0.5rem;
+        &__row{
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid black;
+        }
+    }
+}
