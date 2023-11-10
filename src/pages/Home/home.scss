@@ -13,4 +13,25 @@
       background-color: var(--color-light);
     }
   }
+  &__summary {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: var(--color-primary);
+    float:left;
+    display:inline;
+  }
 }
+
+.home-page-grid__summary > h3 {
+  float:left;
+  display: inline;
+  width: fit-content
+}
+
+table {
+  background-color: white;
+  border-radius: 8px;
+}
+
+
+
